@@ -22,7 +22,6 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
-db.php
 vendor/libs/*
 public/images/*
 !vendor/libs/.gitkeep

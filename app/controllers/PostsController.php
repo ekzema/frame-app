@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 use app\models\post;
+
 class PostsController extends AppController
 {
     public function indexAction()
@@ -21,22 +22,16 @@ class PostsController extends AppController
             return header("Location: /");
         $image = $_FILES ? $_FILES['image'] : false;
         if ($image && $image['size'] > 0) {
-            $check = getimagesize($image["tmp_name"]);
-            if ($check === false) {
-                echo 'Image error';exit;
-            }
-            $temp = explode(".", strtolower($image['name']));
-            $imageFormat = strtolower(end($temp));
-            $randomName = round(microtime(true)). rand(1000, 9999). '.' . $imageFormat;
-            $newFilename = 'images/' . $randomName;
-            if (! move_uploaded_file($image["tmp_name"], $newFilename)) {
-                echo 'Image was not loaded';exit;
-            }
+            $uploadedFile = $_FILES['image']['tmp_name'];
+            $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $newFileName = time() . '.' . $ext;
+            $dirPath = "images/";
+            self::imageCheck($uploadedFile,$dirPath, $newFileName);
         }
         $post = new Post();
         $post->name = $_POST['name'];
         $post->body = $_POST['body'];
-        $post->image = $randomName ?? '';
+        $post->image = $newFileName ?? '';
         $post->save();
         return header("Location: /main/test");
     }
