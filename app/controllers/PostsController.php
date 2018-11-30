@@ -38,6 +38,8 @@ class PostsController extends AppController
 
     public function showAction($id)
     {
-        print_r($id);exit;
+        $model = new Post();
+        $post = $model->findOne($id, 'id');
+        $this->set(['post' => $post]);
     }
 }
