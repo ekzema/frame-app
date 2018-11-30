@@ -30,6 +30,27 @@ abstract class Model
         return $this->pdo->execute($sql, $params);
     }
 
+    public function update($id)
+    {
+        $params = [];
+        $val = '';
+        foreach ($this->props as $prop) {
+            if (! $this->$prop)
+                continue;
+            $params[":{$prop}"] = $this->$prop;
+            $val .= "{$prop}=:{$prop},";
+        }
+        $val = rtrim($val,',');
+        $sql = "UPDATE $this->table SET $val WHERE id=$id";
+        return $this->pdo->execute($sql, $params);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM $this->table WHERE id=$id";
+        return $this->pdo->execute($sql);
+    }
+
     public function query($sql)
     {
         return $this->pdo->execute($sql);
@@ -45,7 +66,7 @@ abstract class Model
     {
         $field = $field ?: $this->pk;
         $sql = "SELECT * FROM {$this->table} WHERE $field = ? LIMIT 1";
-        return $this->pdo->query($sql, [$id]);
+        return $this->pdo->query($sql, [$id], true);
     }
 
     public function findBySql($sql, $params = [])

@@ -10,5 +10,6 @@
 <body>
 <h1>Header</h1>
 <?= $content ?>
+<h1><Footer></Footer></h1>
 </body>
 </html>

@@ -19,6 +19,9 @@ spl_autoload_register(function($class){
 Router::add('posts/add', ['controller' => 'Posts', 'action' => 'add']);
 Router::add('posts', ['controller' => 'Posts', 'action' => 'index']);
 Router::add('post/:id', ['controller' => 'Posts', 'action' => 'show']);
+Router::add('post/edit/:id', ['controller' => 'Posts', 'action' => 'edit']);
+Router::add('post/update/:id', ['controller' => 'Posts', 'action' => 'update']);
+Router::add('post/delete', ['controller' => 'Posts', 'action' => 'delete']);
 Router::add('', ['controller' => 'Main', 'action' => 'index']);
 Router::add('main/test', ['controller' => 'Main', 'action' => 'test']);
 

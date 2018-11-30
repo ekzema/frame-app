@@ -11,9 +11,10 @@ class PostsController extends AppController
         $this->set(['posts' => $posts]);
     }
 
-    public function testAction()
+    public function showAction($id)
     {
-        echo 'Posts::test';
+        $post = self::findPost($id);
+        $this->set(['post' => $post]);
     }
 
     public function addAction()
@@ -36,10 +37,57 @@ class PostsController extends AppController
         return header("Location: /main/test");
     }
 
-    public function showAction($id)
+    public function editAction($id)
+    {
+        $post = self::findPost($id);
+        $this->set(['post' => $post]);
+    }
+
+    public function updateAction($id)
+    {
+        if (! $_POST)
+            return header("Location: /");
+        $post = new Post();
+        $image = $_FILES ? $_FILES['image'] : false;
+        if ($image && $image['size'] > 0) {
+            $uploadedFile = $_FILES['image']['tmp_name'];
+            $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+            $newFileName = time() . '.' . $ext;
+            $dirPath = "images/";
+            self::imageCheck($uploadedFile,$dirPath, $newFileName);
+            $obj = self::findPost($id);
+            if (file_exists("{$dirPath}{$obj->image}"))
+                unlink("{$dirPath}{$obj->image}");
+            $post->image = $newFileName;
+        }
+        $post->name = $_POST['name'];
+        $post->body = $_POST['body'];
+        $post->update($id);
+        return header("Location: /post/edit/{$id}");
+    }
+
+    public function deleteAction()
+    {
+        if (! $_POST)
+            return header("Location: /");
+        $id = $_POST['id'];
+        $dirPath = 'images/';
+        $obj = self::findPost($id);
+        if (file_exists("{$dirPath}{$obj->image}"))
+            unlink("{$dirPath}{$obj->image}");
+        $post = new Post();
+        $post->delete($id);
+        return header("Location: /posts");
+    }
+
+    private static function findPost($id)
     {
         $model = new Post();
         $post = $model->findOne($id, 'id');
-        $this->set(['post' => $post]);
+        if (! $post) {
+            http_response_code(404);
+            echo "<h1 align='center'>(404) Post not found</h1>";exit;
+        }
+        return $post;
     }
 }
