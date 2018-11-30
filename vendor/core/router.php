@@ -5,6 +5,7 @@ class Router
 {
     private static $routes = [];
     private static $route = [];
+    private static $param;
 
     public static function add($regexp, $route = [])
     {
@@ -35,13 +36,19 @@ class Router
     public static function dispatch($url)
     {
         $url = self::removeQueryString($url);
+        $check = explode("/", $url);
+        if (is_numeric(end($check))) {
+            self::$param = end($check);
+            array_pop($check);
+            $url =  implode("/", $check).'/:id';
+        }
         if (self::matchRoute($url)) {
             $controller = 'app\controllers\\' . self::$route['controller'] . 'Controller';
             if(class_exists($controller)){
                 $cObj = new $controller(self::$route);
                 $action = self::$route['action'] . 'Action';
                 if(method_exists($cObj, $action)){
-                    $cObj->$action();
+                    $cObj->$action(self::$param);
                     $cObj->getView();
                 }else{
                     echo "Метод <b>$controller::$action</b> не найден!";

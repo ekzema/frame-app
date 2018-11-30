@@ -45,12 +45,12 @@ class AppController extends Controller
     {
         $ratio = $size[0]/$size[1];
         if( $ratio > 1) {
-            $width = 500;
-            $height = 500/$ratio;
+            $width = 100;
+            $height = 100/$ratio;
         }
         else {
-            $width = 500*$ratio;
-            $height = 500;
+            $width = 100*$ratio;
+            $height = 100;
         }
         $newImageLayer = imagecreatetruecolor($width,$height);
         imagecopyresampled($newImageLayer,$imageSrc,0,0,0,0,$width,$height,$size[0],$size[1]);

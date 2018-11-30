@@ -36,8 +36,8 @@ class PostsController extends AppController
         return header("Location: /main/test");
     }
 
-    public function showAction()
+    public function showAction($id)
     {
-
+        print_r($id);exit;
     }
 }
