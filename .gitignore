@@ -22,7 +22,7 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
-vendor/
-!vendor/fw
+vendor/*
+!vendor/fw/
 public/images/*
 !public/images/.gitkeep
