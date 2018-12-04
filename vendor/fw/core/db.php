@@ -7,11 +7,10 @@
  */
 
 namespace fw\core;
-
+use config\ConnectDb;
 
 class Db
 {
-
     protected $pdo;
     protected static $instance;
 
@@ -19,7 +18,8 @@ class Db
 
     protected function __construct()
     {
-        $db = require ROOT . '/config/config_db.php';
+        require ROOT . '/config/config_db.php';
+        $db = ConnectDb::dsn(ENV);
         $options = [
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,

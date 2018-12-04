@@ -11,6 +11,10 @@ class PostsController extends AppController
         $this->set(['posts' => $posts]);
     }
 
+    public function newAction()
+    {
+    }
+
     public function showAction($id)
     {
         $post = self::findPost($id);
@@ -73,7 +77,7 @@ class PostsController extends AppController
         $id = $_POST['id'];
         $dirPath = 'images/';
         $obj = self::findPost($id);
-        if (file_exists("{$dirPath}{$obj->image}"))
+        if ($obj->image && file_exists("{$dirPath}{$obj->image}"))
             unlink("{$dirPath}{$obj->image}");
         $post = new Post();
         $post->delete($id);

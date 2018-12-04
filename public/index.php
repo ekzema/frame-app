@@ -7,6 +7,7 @@ define('CORE', dirname(__DIR__).'/vendor/fw/core');
 define('ROOT', dirname(__DIR__));
 define('APP', dirname(__DIR__).'/app');
 define('LAYOUT', 'default');
+define('ENV', 'production');
 require __DIR__ . '/../vendor/autoload.php';
 //spl_autoload_register(function($class){
 //    $file = ROOT . '/' . str_replace('\\', '/', $class) . '.php';
@@ -16,6 +17,7 @@ require __DIR__ . '/../vendor/autoload.php';
 //});
 
 
+Router::add('post/new', ['controller' => 'Posts', 'action' => 'new']);
 Router::add('posts/add', ['controller' => 'Posts', 'action' => 'add']);
 Router::add('posts', ['controller' => 'Posts', 'action' => 'index']);
 Router::add('post/:id', ['controller' => 'Posts', 'action' => 'show']);

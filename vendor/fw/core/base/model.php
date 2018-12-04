@@ -7,7 +7,7 @@ abstract class Model
 {
     protected $pdo;
     protected $table;
-    protected  $props = [];
+    protected $props = [];
     protected $pk = 'id';
 
     public function __construct()
