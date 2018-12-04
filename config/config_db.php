@@ -1,6 +1,6 @@
 <?php
 namespace config;
-class ConnectDb
+abstract class ConnectDb
 {
     public static function dsn($env)
     {
