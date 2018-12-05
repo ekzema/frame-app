@@ -22,7 +22,7 @@
                                     <a type="button" class="btn btn-sm btn-outline-secondary" href="/post/edit/<?= $post->id ?>">Edit</a>
                                     <form action="/post/delete" method="post">
                                         <input type="hidden" name="id" value="<?= $post->id ?>">
-                                        <input class="btn btn-sm btn-outline-danger" type="button" value="delete" />
+                                        <input class="btn btn-sm btn-outline-danger" type="submit" value="delete" />
                                     </form>
                                 </div>
                                 <small class="text-muted">9 mins</small>
@@ -34,3 +34,4 @@
         </div>
     </div>
 </div>
+
