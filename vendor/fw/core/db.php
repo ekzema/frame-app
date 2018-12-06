@@ -1,19 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Denis
- * Date: 15.12.2017
- * Time: 0:53
- */
-
 namespace fw\core;
+
 use config\ConnectDb;
 
 class Db
 {
     protected $pdo;
     protected static $instance;
-
     public static $queries = [];
 
     protected function __construct()
@@ -27,24 +20,27 @@ class Db
         $this->pdo = new \PDO($db['dsn'], $db['user'], $db['pass'], $options);
     }
 
-    public static function instance(){
-        if(self::$instance === null){
+    public static function instance()
+    {
+        if (self::$instance === null) {
             self::$instance = new self;
         }
         return self::$instance;
     }
 
-    public function execute($sql, $params = []){
+    public function execute($sql, $params = [])
+    {
         self::$queries[] = $sql;
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($params);
     }
 
-    public function query($sql, $params = [], $findOne = false){
+    public function query($sql, $params = [], $findOne = false)
+    {
         self::$queries[] = $sql;
         $stmt = $this->pdo->prepare($sql);
         $res = $stmt->execute($params);
-        if($res !== false){
+        if ($res !== false) {
             if ($findOne)
                 return $stmt->fetch(\PDO::FETCH_OBJ);
             return $stmt->fetchAll(\PDO::FETCH_OBJ);

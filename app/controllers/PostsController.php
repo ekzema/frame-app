@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+
 use app\models\post;
 
 class PostsController extends AppController

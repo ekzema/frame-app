@@ -44,16 +44,16 @@ class Router
         }
         if (self::matchRoute($url)) {
             $controller = 'app\controllers\\' . self::$route['controller'] . 'Controller';
-            if(class_exists($controller)){
+            if (class_exists($controller)) {
                 $cObj = new $controller(self::$route);
                 $action = self::$route['action'] . 'Action';
-                if(method_exists($cObj, $action)){
+                if (method_exists($cObj, $action)) {
                     $cObj->$action(self::$param);
                     $cObj->getView();
-                }else{
+                } else {
                     echo "Метод <b>$controller::$action</b> не найден!";
                 }
-            }else{
+            } else {
                 echo '505';
             }
         } else {
@@ -62,12 +62,13 @@ class Router
         }
     }
 
-    protected static function removeQueryString($url){
-        if($url){
+    protected static function removeQueryString($url)
+    {
+        if ($url) {
             $params = explode('&', $url, 2);
-            if(strpos($params[0], '/') || strlen($params[0])){
+            if (strpos($params[0], '/') || strlen($params[0])) {
                 return trim($params[0], '/');
-            }else{
+            } else {
                 return '';
             }
         }

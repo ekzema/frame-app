@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Denis
- * Date: 13.12.2017
- * Time: 1:26
- */
-
 namespace app\controllers;
+
 use fw\core\base\Controller;
 
 class AppController extends Controller
@@ -38,19 +32,18 @@ class AppController extends Controller
         }
     }
 
-    protected static function imageResize($imageSrc,$size)
+    protected static function imageResize($imageSrc, $size)
     {
         $ratio = $size[0]/$size[1];
-        if( $ratio > 1) {
+        if ($ratio > 1) {
             $width = 150;
             $height = 150/$ratio;
-        }
-        else {
+        } else {
             $width = 150*$ratio;
             $height = 150;
         }
         $newImageLayer = imagecreatetruecolor($width,$height);
-        imagecopyresampled($newImageLayer,$imageSrc,0,0,0,0,$width,$height,$size[0],$size[1]);
+        imagecopyresampled($newImageLayer, $imageSrc,0,0,0,0, $width, $height, $size[0], $size[1]);
         return $newImageLayer;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 error_reporting(-1);
 use fw\core\Router;
+
 $query = rtrim($_SERVER['QUERY_STRING'], '/');
 define('www', __DIR__);
 define('CORE', dirname(__DIR__).'/vendor/fw/core');
@@ -15,8 +16,6 @@ require __DIR__ . '/../vendor/autoload.php';
 //        require $file;
 //    }
 //});
-
-
 Router::add('post/new', ['controller' => 'Posts', 'action' => 'new']);
 Router::add('posts/add', ['controller' => 'Posts', 'action' => 'add']);
 Router::add('posts', ['controller' => 'Posts', 'action' => 'index']);
@@ -26,8 +25,6 @@ Router::add('post/update/:id', ['controller' => 'Posts', 'action' => 'update']);
 Router::add('post/delete', ['controller' => 'Posts', 'action' => 'delete']);
 Router::add('', ['controller' => 'Main', 'action' => 'index']);
 Router::add('main/test', ['controller' => 'Main', 'action' => 'test']);
-
-
 //if (Router::matchRoute($query)) {
 //    print_r(Router::getRoute());
 //} else {

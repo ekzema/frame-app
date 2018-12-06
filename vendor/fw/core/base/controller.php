@@ -1,5 +1,4 @@
 <?php
-
 namespace fw\core\base;
 
 abstract class Controller
@@ -21,7 +20,8 @@ abstract class Controller
         $vObj = new View($this->route, $this->layout, $this->view);
         $vObj->render($this->vars);
     }
-    public function set($vars){
+    public function set($vars)
+    {
         $this->vars = $vars;
     }
 

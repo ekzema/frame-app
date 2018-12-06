@@ -1,6 +1,6 @@
 <?php
-
 namespace fw\core\base;
+
 use fw\core\Db;
 
 abstract class Model

@@ -9,6 +9,7 @@ define('APP', dirname(__DIR__).'/app');
 define('LAYOUT', 'default');
 define('ENV', 'test');
 use PHPUnit\Framework\TestCase;
+
 use \app\models\Post;
 
 class PostTest extends TestCase
@@ -19,7 +20,8 @@ class PostTest extends TestCase
     {
         self::$model = new Post();
     }
-    static function findAction($route = [])
+
+    public static function findAction($route = [])
     {
         self::assertSame(2, count($route));
         self::assertSame(true, class_exists('app\controllers\\'.$route['controller'].'Controller'), 'Controller not found');
@@ -61,7 +63,8 @@ class PostTest extends TestCase
         $this->assertTrue(self::$model->delete($posts[0]->id));
     }
 
-    function tearDown() {
+    function tearDown()
+    {
         self::$model = NULL;
     }
 }
